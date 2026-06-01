@@ -1,0 +1,14 @@
+<Solution>
+  <Folder Name="/API/">
+    <Project Path="src/MarketDataService.API/MarketDataService.API.csproj" Id="6c8aa081-0b6d-4204-8efd-27f2c1a03a1b" />
+  </Folder>
+  <Folder Name="/Apllication/">
+    <Project Path="src/MarketDataService.Application/MarketDataService.Application.csproj" Id="4d4d5ec7-f9c0-4531-9b27-82013a9c675f" />
+  </Folder>
+  <Folder Name="/Domain/">
+    <Project Path="src/MarketDataService.Domain/MarketDataService.Domain.csproj" Id="786fe0be-0465-44d7-9fb5-fc0e6d4e3440" />
+  </Folder>
+  <Folder Name="/Infrastructure/">
+    <Project Path="src/MarketDataService.Infrastructure/MarketDataService.Infrastructure.csproj" Id="9a52909c-53ba-466a-86f0-7ffb88a733e0" />
+  </Folder>
+</Solution>
