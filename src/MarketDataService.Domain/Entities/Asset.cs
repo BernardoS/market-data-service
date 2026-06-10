@@ -10,6 +10,7 @@ public class Asset
     public string Description { get; private set; }
     public AssetType AssetType { get; private set; }
     public int Rating { get; private set; }
+    public bool IsEnabled {get; private set;}
     public DateTime CreatedAt { get; private set; }
     public DateTime UpdatedAt { get; private set; }
     public ICollection<AssetQuote> Quotes { get; private set; }
