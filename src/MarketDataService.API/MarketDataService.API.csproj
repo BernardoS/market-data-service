@@ -21,4 +21,8 @@
     <ProjectReference Include="..\MarketDataService.Workers\MarketDataService.Workers.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 </Project>
