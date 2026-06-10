@@ -1,6 +1,6 @@
 namespace MarketDataService.Application.Dtos;
 
-public class UpdateAssetRatingDto
+public class UpdateAssetRatingInput
 {
     public int Rating { get; set; }
 }
