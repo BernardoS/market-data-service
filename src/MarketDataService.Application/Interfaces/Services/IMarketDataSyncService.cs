@@ -1,6 +1,6 @@
 ﻿using MarketDataService.Domain.Enum;
 
-namespace MarketDataService.Application.Interfaces;
+namespace MarketDataService.Application.Interfaces.Services;
 
 public interface IMarketDataSyncService
 {
