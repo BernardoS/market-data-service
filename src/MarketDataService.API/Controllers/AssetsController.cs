@@ -1,3 +1,4 @@
+using MarketDataService.API.Dtos;
 using MarketDataService.Application.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
@@ -84,7 +85,7 @@ public class AssetsController : ControllerBase
     /// POST /assets/ -> Recebe uma DTO e Serve para criar um asset
     /// </summary>
     [HttpPost]
-    public IActionResult CreateAsset([FromBody] CreateAssetDto createAssetDto)
+    public IActionResult CreateAsset([FromBody] CreateAssetRequest createAssetRequest)
     {
         if (!ModelState.IsValid)
         {
@@ -92,16 +93,16 @@ public class AssetsController : ControllerBase
         }
 
         // Mock mapping
-        var input = createAssetDto.MapToInput();
+        var input = createAssetRequest.MapToInput();
 
         // Mock response
         var createdAsset = new AssetResponseDto
         {
             Id = Guid.NewGuid(),
-            Symbol = createAssetDto.Symbol,
-            Name = createAssetDto.Name,
-            Description = createAssetDto.Description,
-            AssetType = createAssetDto.AssetType.ToString(),
+            Symbol = createAssetRequest.Symbol,
+            Name = createAssetRequest.Name,
+            Description = createAssetRequest.Description,
+            AssetType = createAssetRequest.AssetType.ToString(),
             Rating = 0,
             IsEnabled = false,
             CreatedAt = DateTime.UtcNow,
@@ -115,7 +116,7 @@ public class AssetsController : ControllerBase
     /// PATCH /assets/rating/{symbol} -> Recebe uma DTO e serve para classificar o ativo e ativá-lo logo em seguida
     /// </summary>
     [HttpPatch("rating/{symbol}")]
-    public IActionResult UpdateAssetRating(string symbol, [FromBody] UpdateAssetRatingDto updateAssetRatingDto)
+    public IActionResult UpdateAssetRating(string symbol, [FromBody] UpdateAssetRatingRequest updateAssetRatingRequest)
     {
         if (!ModelState.IsValid)
         {
@@ -123,7 +124,7 @@ public class AssetsController : ControllerBase
         }
 
         // Mock mapping
-        var input = updateAssetRatingDto.MapToInput();
+        var input = updateAssetRatingRequest.MapToInput();
 
         // Mock response
         var updatedAsset = new AssetResponseDto
@@ -133,7 +134,7 @@ public class AssetsController : ControllerBase
             Name = "Apple Inc.",
             Description = "Empresa de tecnologia americana",
             AssetType = "Stock",
-            Rating = updateAssetRatingDto.Rating,
+            Rating = updateAssetRatingRequest.Rating,
             IsEnabled = true, // Ativado após classificação
             CreatedAt = DateTime.UtcNow.AddDays(-30),
             UpdatedAt = DateTime.UtcNow

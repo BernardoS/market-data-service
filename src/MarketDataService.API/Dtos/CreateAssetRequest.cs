@@ -1,3 +1,4 @@
+using MarketDataService.Application.Dtos;
 using MarketDataService.Domain.Enum;
 
 namespace MarketDataService.API.Dtos;
@@ -9,14 +10,14 @@ public class CreateAssetRequest
     public string Description { get; set; }
     public AssetType AssetType { get; set; }
 
-    public object MapToInput()
+    public CreateAssetInput MapToInput()
     {
-        return new
+        return new CreateAssetInput()
         {
             Symbol = this.Symbol,
             Name = this.Name,
             Description = this.Description,
-            AssetType = this.AssetType.ToString()
+            AssetType = this.AssetType
         };
     }
 }
