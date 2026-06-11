@@ -1,5 +1,6 @@
 using MarketDataService.API.Dtos;
 using MarketDataService.Application.Dtos;
+using MarketDataService.Application.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MarketDataService.API.Controllers;
@@ -8,27 +9,29 @@ namespace MarketDataService.API.Controllers;
 [Route("api/[controller]")]
 public class AssetsController : ControllerBase
 {
+    
+    private IAssetService _assetService;
+
+    public AssetsController(IAssetService assetService)
+    {
+        _assetService = assetService;
+    }
+    
     /// <summary>
     /// GET /assets/{symbol} -> Recupera o detalhes de um asset específico
     /// </summary>
     [HttpGet("{symbol}")]
     public IActionResult GetAssetBySymbol(string symbol)
     {
-        // Mock data
-        var asset = new AssetResponseDto
-        {
-            Id = new Guid("123e4567-e89b-12d3-a456-426614174000"),
-            Symbol = symbol,
-            Name = "Apple Inc.",
-            Description = "Empresa de tecnologia americana",
-            AssetType = "Stock",
-            Rating = 5,
-            IsEnabled = true,
-            CreatedAt = DateTime.UtcNow.AddDays(-30),
-            UpdatedAt = DateTime.UtcNow.AddDays(-1)
-        };
 
-        return Ok(asset);
+       var asset = _assetService.GetAssetBySymbol(symbol);
+       
+       if(asset == null)
+           return NotFound();
+       
+       var result = new AssetResponseDto(asset!);
+
+        return Ok(result);
     }
 
     /// <summary>
@@ -95,19 +98,7 @@ public class AssetsController : ControllerBase
         // Mock mapping
         var input = createAssetRequest.MapToInput();
 
-        // Mock response
-        var createdAsset = new AssetResponseDto
-        {
-            Id = Guid.NewGuid(),
-            Symbol = createAssetRequest.Symbol,
-            Name = createAssetRequest.Name,
-            Description = createAssetRequest.Description,
-            AssetType = createAssetRequest.AssetType.ToString(),
-            Rating = 0,
-            IsEnabled = false,
-            CreatedAt = DateTime.UtcNow,
-            UpdatedAt = DateTime.UtcNow
-        };
+        var createdAsset = _assetService.CreateAsset(input);
 
         return CreatedAtAction(nameof(GetAssetBySymbol), new { symbol = createdAsset.Symbol }, createdAsset);
     }
@@ -115,30 +106,17 @@ public class AssetsController : ControllerBase
     /// <summary>
     /// PATCH /assets/rating/{symbol} -> Recebe uma DTO e serve para classificar o ativo e ativá-lo logo em seguida
     /// </summary>
-    [HttpPatch("rating/{symbol}")]
-    public IActionResult UpdateAssetRating(string symbol, [FromBody] UpdateAssetRatingRequest updateAssetRatingRequest)
+    [HttpPatch("rating/")]
+    public IActionResult UpdateAssetRating([FromBody] UpdateAssetRatingRequest updateAssetRatingRequest)
     {
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
         }
-
-        // Mock mapping
+        
         var input = updateAssetRatingRequest.MapToInput();
 
-        // Mock response
-        var updatedAsset = new AssetResponseDto
-        {
-            Id = new Guid("123e4567-e89b-12d3-a456-426614174000"),
-            Symbol = symbol,
-            Name = "Apple Inc.",
-            Description = "Empresa de tecnologia americana",
-            AssetType = "Stock",
-            Rating = updateAssetRatingRequest.Rating,
-            IsEnabled = true, // Ativado após classificação
-            CreatedAt = DateTime.UtcNow.AddDays(-30),
-            UpdatedAt = DateTime.UtcNow
-        };
+        var updatedAsset = _assetService.RateAsset(input);
 
         return Ok(updatedAsset);
     }

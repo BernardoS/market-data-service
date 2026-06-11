@@ -1,3 +1,4 @@
+using MarketDataService.Domain.Entities;
 using MarketDataService.Domain.Enum;
 
 namespace MarketDataService.Application.Dtos;
@@ -13,5 +14,21 @@ public class AssetResponseDto
     public bool IsEnabled { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
+    
+    public AssetResponseDto()
+    {
+    }
 
+    public AssetResponseDto(Asset asset)
+    {
+        Id = asset.Id;
+        Symbol = asset.Symbol;
+        Name = asset.Name;
+        Description = asset.Description;
+        AssetType = asset.AssetType.ToString();
+        Rating = asset.Rating;
+        IsEnabled = asset.IsEnabled;
+        CreatedAt = asset.CreatedAt;
+        UpdatedAt = asset.UpdatedAt;
+    }
 }
