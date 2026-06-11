@@ -84,12 +84,13 @@ public class AssetsController : ControllerBase
     }
 
     /// <summary>
-    /// DELETE /assets/{symbol} -> Delete um asset
+    /// DELETE /assets/ -> Delete um asset
     /// </summary>
-    [HttpDelete("{symbol}")]
-    public IActionResult DeleteAsset(string symbol)
+    [HttpDelete]
+    public IActionResult DeleteAsset(RemoveAssetRequest removeAssetRequest)
     {
-        // Mock delete response
+        var input = removeAssetRequest.MapToInput();
+        _assetService.RemoveAsset(input);
         return NoContent();
     }
 }

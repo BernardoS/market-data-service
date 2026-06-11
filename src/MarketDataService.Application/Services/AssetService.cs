@@ -59,4 +59,16 @@ public class AssetService : IAssetService
         }
         
     }
+
+    public Asset RemoveAsset(RemoveAssetInput input)
+    {
+        var asset = _assetRepository.GetAssetBySymbol(input.Symbol);
+
+        if (asset == null)
+            throw new Exception("Asset not found");
+        
+        _assetRepository.RemoveAsset(asset);
+
+        return asset;
+    }
 }

@@ -9,4 +9,5 @@ public interface IAssetService
      Asset CreateAsset(CreateAssetInput input);
      Asset RateAsset(UpdateAssetRatingInput input);   
      Asset? GetAssetBySymbol(string symbol);
+     Asset RemoveAsset(RemoveAssetInput input);
 }

@@ -10,4 +10,5 @@ public interface IAssetRepository
     Asset CreateAsset(Asset asset);
     Asset UpdateAsset(Asset asset);
     Asset AddQuote(Guid assetId , AssetQuote asset);
+    Asset RemoveAsset(Asset asset);
 }

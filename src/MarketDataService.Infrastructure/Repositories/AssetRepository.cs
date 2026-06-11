@@ -69,4 +69,11 @@ public class AssetRepository: IAssetRepository
     {
         throw new NotImplementedException();
     }
+
+    public Asset RemoveAsset(Asset asset)
+    {
+        _dbContext.Assets.Remove(asset);
+        _dbContext.SaveChanges();
+        return asset;
+    }
 }
