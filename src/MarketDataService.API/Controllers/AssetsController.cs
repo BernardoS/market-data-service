@@ -40,48 +40,11 @@ public class AssetsController : ControllerBase
     [HttpGet]
     public IActionResult GetAllAssets()
     {
-        // Mock data
-        var assets = new List<AssetResponseDto>
-        {
-            new AssetResponseDto
-            {
-                Id = new Guid("123e4567-e89b-12d3-a456-426614174000"),
-                Symbol = "AAPL",
-                Name = "Apple Inc.",
-                Description = "Empresa de tecnologia americana",
-                AssetType = "Stock",
-                Rating = 5,
-                IsEnabled = true,
-                CreatedAt = DateTime.UtcNow.AddDays(-30),
-                UpdatedAt = DateTime.UtcNow.AddDays(-1)
-            },
-            new AssetResponseDto
-            {
-                Id = new Guid("223e4567-e89b-12d3-a456-426614174001"),
-                Symbol = "GOOGL",
-                Name = "Alphabet Inc.",
-                Description = "Empresa de tecnologia e buscas",
-                AssetType = "Stock",
-                Rating = 4,
-                IsEnabled = true,
-                CreatedAt = DateTime.UtcNow.AddDays(-45),
-                UpdatedAt = DateTime.UtcNow.AddDays(-2)
-            },
-            new AssetResponseDto
-            {
-                Id = new Guid("323e4567-e89b-12d3-a456-426614174002"),
-                Symbol = "MSFT",
-                Name = "Microsoft Corporation",
-                Description = "Empresa de software e nuvem",
-                AssetType = "Stock",
-                Rating = 5,
-                IsEnabled = true,
-                CreatedAt = DateTime.UtcNow.AddDays(-60),
-                UpdatedAt = DateTime.UtcNow.AddDays(-3)
-            }
-        };
+        var assets = _assetService.GetAssets();
+        
+        var result = assets.Select(asset => new AssetResponseDto(asset));
 
-        return Ok(assets);
+        return Ok(result);
     }
 
     /// <summary>
@@ -95,7 +58,6 @@ public class AssetsController : ControllerBase
             return BadRequest(ModelState);
         }
 
-        // Mock mapping
         var input = createAssetRequest.MapToInput();
 
         var createdAsset = _assetService.CreateAsset(input);

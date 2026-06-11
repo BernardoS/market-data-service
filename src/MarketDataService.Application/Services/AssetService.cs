@@ -14,6 +14,10 @@ public class AssetService : IAssetService
         _assetRepository = assetRepository;
     }
 
+    public ICollection<Asset> GetAssets(bool onlyEnabled = true)
+    {
+        return _assetRepository.GetAssets(onlyEnabled);
+    }
 
     public Asset CreateAsset(CreateAssetInput input)
     {

@@ -35,7 +35,18 @@ public class AssetRepository: IAssetRepository
 
     public ICollection<Asset> GetAssets(bool onlyEnabled = true)
     {
-        throw new NotImplementedException();
+        var assets = new List<Asset>();
+
+        if (onlyEnabled)
+        {
+            assets = _dbContext.Assets.Where(a => a.IsEnabled).ToList();
+            
+            return assets;
+        }
+        
+        assets = _dbContext.Assets.ToList();
+
+        return assets;
     }
 
     public Asset CreateAsset(Asset asset)
