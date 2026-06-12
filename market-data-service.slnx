@@ -11,4 +11,7 @@
   <Folder Name="/Infrastructure/">
     <Project Path="src/MarketDataService.Infrastructure/MarketDataService.Infrastructure.csproj" Id="9a52909c-53ba-466a-86f0-7ffb88a733e0" />
   </Folder>
+  <Folder Name="/Workers/">
+    <Project Path="src/MarketDataService.Workers/MarketDataService.Workers.csproj" Id="59c7addc-e0be-4aa5-baaf-e4269993da89" />
+  </Folder>
 </Solution>

@@ -7,7 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MarketDataService.Domain\MarketDataService.Domain.csproj" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MarketDataService.Application\MarketDataService.Application.csproj" />
   </ItemGroup>
 
 </Project>
