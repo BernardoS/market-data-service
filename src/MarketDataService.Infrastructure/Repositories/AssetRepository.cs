@@ -1,6 +1,7 @@
 ﻿using MarketDataService.Application.Interfaces.Repositories;
 using MarketDataService.Domain.Entities;
 using MarketDataService.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace MarketDataService.Infrastructure.Repositories;
 
@@ -39,7 +40,7 @@ public class AssetRepository: IAssetRepository
 
         if (onlyEnabled)
         {
-            assets = _dbContext.Assets.Where(a => a.IsEnabled).ToList();
+            assets = _dbContext.Assets.Where(a => a.IsEnabled).AsNoTracking().ToList();
             
             return assets;
         }
@@ -65,9 +66,12 @@ public class AssetRepository: IAssetRepository
         return asset;
     }
 
-    public Asset AddQuote(Guid assetId, AssetQuote asset)
+    public void AddQuote(Guid assetId, decimal price)
     {
-        throw new NotImplementedException();
+        var newQuote = new AssetQuote(assetId, price);
+        
+        _dbContext.AssetQuotes.Add(newQuote);
+        _dbContext.SaveChanges();
     }
 
     public Asset RemoveAsset(Asset asset)

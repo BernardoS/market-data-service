@@ -4,7 +4,7 @@ namespace MarketDataService.Application.Interfaces.Services;
 
 public interface IMarketDataSyncService
 {
-    bool SyncActiveAsset(Guid assetId);
+    bool SyncEnabledAsset(Guid assetId);
     
-    bool SyncActiveAssets();
+    bool SyncEnabledAssets();
 }

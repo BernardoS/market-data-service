@@ -9,6 +9,6 @@ public interface IAssetRepository
     ICollection<Asset> GetAssets(bool onlyEnabled = true);
     Asset CreateAsset(Asset asset);
     Asset UpdateAsset(Asset asset);
-    Asset AddQuote(Guid assetId , AssetQuote asset);
+    void AddQuote(Guid assetId , decimal price);
     Asset RemoveAsset(Asset asset);
 }

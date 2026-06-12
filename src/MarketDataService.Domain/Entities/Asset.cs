@@ -15,7 +15,7 @@ public class Asset
         CreatedAt = DateTime.UtcNow;
         UpdatedAt = DateTime.UtcNow;
     }
-
+    
     public Asset()
     {
     }
@@ -42,15 +42,6 @@ public class Asset
         IsEnabled = true;
         UpdatedAt = DateTime.UtcNow;
     }
-
-    public void AddQuote(AssetQuote quote)
-    {
-        if (!IsEnabled)
-        {
-            throw new Exception("Asset are not enabled, set the asset rating before update asset quotes");
-        }
-
-        Quotes.Add(quote);
-    }
+    
     
 }
