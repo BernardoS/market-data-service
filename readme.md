@@ -160,3 +160,9 @@ O serviço possui um `BackgroundService` responsável por sincronizar as cotaç�
 3. Chama `SyncEnabledAssets()` — busca e atualiza as cotações de todos os ativos com `IsEnabled = true`
 4. Registra no console o início e fim da sincronização com um ID único por ciclo
 5. Em caso de erro, registra a exceção no console e aguarda o próximo ciclo sem interromper o serviço
+
+---
+
+## Banco de dados
+
+![alt text](image-1.png)
