@@ -18,20 +18,28 @@ public class AssetRepository: IAssetRepository
     {
         if (onlyEnabled)
         {
-            return _dbContext.Assets.FirstOrDefault(a => a.Id == assetId &&  a.IsEnabled);
+            return _dbContext.Assets
+                .Include(asset => asset.Quotes)
+                .FirstOrDefault(a => a.Id == assetId &&  a.IsEnabled);
         }
         
-        return _dbContext.Assets.FirstOrDefault(a => a.Id == assetId);
+        return _dbContext.Assets
+            .Include(asset => asset.Quotes)
+            .FirstOrDefault(a => a.Id == assetId);
     }
     
     public Asset? GetAssetBySymbol(string symbol, bool onlyEnabled = true)
     {
         if (onlyEnabled)
         {
-            return _dbContext.Assets.FirstOrDefault(a => a.Symbol == symbol &&  a.IsEnabled);
+            return _dbContext.Assets
+                .Include(asset => asset.Quotes)
+                .FirstOrDefault(a => a.Symbol == symbol &&  a.IsEnabled);
         }
         
-        return _dbContext.Assets.FirstOrDefault(a => a.Symbol == symbol);
+        return _dbContext.Assets
+            .Include(asset => asset.Quotes)
+            .FirstOrDefault(a => a.Symbol == symbol);
     }
 
     public ICollection<Asset> GetAssets(bool onlyEnabled = true)
@@ -40,7 +48,10 @@ public class AssetRepository: IAssetRepository
 
         if (onlyEnabled)
         {
-            assets = _dbContext.Assets.Where(a => a.IsEnabled).AsNoTracking().ToList();
+            assets = _dbContext.Assets.Where(a => a.IsEnabled)
+                .Include(asset => asset.Quotes)
+                .AsNoTracking()
+                .ToList();
             
             return assets;
         }
